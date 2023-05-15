@@ -10,7 +10,15 @@ namespace Learn.Misc
     {
         int _Id;
         string _Title;
-        
+        object _DataContext;
+
+        public int Id
+        {
+            get
+            {
+                return _Id;
+            }
+        }
         public string Title
         {
             get
@@ -18,10 +26,18 @@ namespace Learn.Misc
                 return _Title;
             }
         }
-        public SelectorOption(int Id, string Title)
+        public object DataContext
+        {
+            get
+            {
+                return _DataContext;
+            }
+        }
+        public SelectorOption(int Id, string Title, object DataContext = null)
         {
             _Id = Id;
             _Title = Title;
+            _DataContext = DataContext;
         }
     }
 }
