@@ -21,8 +21,4 @@
     </EmbeddedResource>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Windows\Editor\" />
-  </ItemGroup>
-
 </Project>
