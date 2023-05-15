@@ -59,5 +59,25 @@ namespace Learn.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] logo {
+            get {
+                object obj = ResourceManager.GetObject("logo", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] logo_ico {
+            get {
+                object obj = ResourceManager.GetObject("logo.ico", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }
