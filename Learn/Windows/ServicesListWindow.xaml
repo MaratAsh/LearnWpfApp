@@ -5,10 +5,171 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Learn.Windows"
         mc:Ignorable="d"
-        Title="ServicesListWindow"
+        Title="Services"
         MinHeight="450" MinWidth="800"
-        Height="450" Width="800">
+        Height="450" Width="800"
+        Icon="/Resources/logo.ico"
+        >
+    <Window.Resources>
+        <Style x:Key="ActionTitle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid
+            Grid.Row="0" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.25*"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="0.25*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel
+                Grid.Row="2" Grid.Column="3"
+                Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <TextBlock></TextBlock>
+                <TextBlock></TextBlock>
+                <TextBlock></TextBlock>
+            </StackPanel>
+
+            <TextBox
+                x:Name="serchQueryBox"
+                TextChanged="serchQueryBox_TextChanged"
+                Grid.Row="1" Grid.ColumnSpan="4"></TextBox>
+            <Button
+                Grid.Row="1" Grid.Column="5"
+                x:Name="clearSerchBtn"
+                Click="clearSerchBtn_Click">Очистить</Button>
+            <TextBlock
+                Grid.Row="3"
+                Style="{StaticResource ActionTitle}">Сортировка:</TextBlock>
+            <TextBlock
+                Grid.Row="3" Grid.Column="3"
+                Style="{StaticResource ActionTitle}">Фильтрация:</TextBlock>
+            <ComboBox
+                x:Name="sortSelector"
+                Grid.Row="3" Grid.Column="1"
+                ItemsSource="{Binding sortSelectorOptions}"
+                SelectedIndex="0"
+                SelectionChanged="Selector_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Title}"></TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <ComboBox
+                x:Name="filterSelector"
+                Grid.Row="3" Grid.Column="4"
+                ItemsSource="{Binding filterSelectorOptions}"
+                SelectedIndex="0"
+                SelectionChanged="Selector_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Title}"></TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </Grid>
+        <ScrollViewer
+            Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"
+            VerticalScrollBarVisibility="Auto">
+            <ItemsControl
+                x:Name="servicesContainer"
+                ItemsSource="{Binding paginationElements}"
+                >
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel ItemWidth="500" MinWidth="400"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            BorderThickness="1"
+                            BorderBrush="Black"
+                            CornerRadius="5 2 5 2"
+                            Margin="0 15 0 15">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.15*"/>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="1.5*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition />
+                                    <RowDefinition Height="0.15*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="10"/>
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                    Source="{Binding Image}"
+                                    Grid.Row="1" Grid.Column="1" Grid.RowSpan="4"></Image>
+                                <TextBlock
+                                    Grid.Row="1" Grid.Column="2"
+                                    Text="{Binding Title}"></TextBlock>
+                                <StackPanel
+                                    Grid.Row="2" Grid.Column="2"
+                                    Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Cost}"></TextBlock>
+                                    <TextBlock
+                                        Margin="5 0 5 0">рублей за</TextBlock>
+                                    <TextBlock Text="{Binding Duration}"></TextBlock>
+                                    <TextBlock
+                                        Margin="5 0 5 0">минут</TextBlock>
+                                </StackPanel>
+                                <StackPanel
+                                    Grid.Row="3" Grid.Column="2"
+                                    Orientation="Horizontal">
+                                    <TextBlock>*</TextBlock>
+                                    <TextBlock
+                                        Margin="5 0 5 0">скидка</TextBlock>
+                                    <TextBlock Text="{Binding Discount}"></TextBlock>
+                                    <TextBlock
+                                        Margin="0 0 5 0">%</TextBlock>
+                                </StackPanel>
+                                <StackPanel
+                                    Grid.Row="4" Grid.Column="2"
+                                    Orientation="Horizontal">
+                                    <Button>Редактировать</Button>
+                                    <Button>Удалить</Button>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <StackPanel
+            Grid.Column="2">
+            <TextBox></TextBox>
+            <Button
+                x:Name="createService">Добавить услугу</Button>
+            <Button
+                x:Name="showAppointments">Просмотр Записей</Button>
+        </StackPanel>
     </Grid>
 </Window>
