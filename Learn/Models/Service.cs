@@ -19,6 +19,7 @@ namespace Learn.Models
         public int? Discount { get; set; }
         public int Duration { get; set; }
         public byte[] Image { get; set; }
+        public decimal? Cost { get; set; }
 
         public virtual ICollection<Appointment> Appointments { get; set; }
         public virtual ICollection<ServicePhoto> ServicePhotos { get; set; }

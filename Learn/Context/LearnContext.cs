@@ -78,6 +78,8 @@ namespace Learn.Context
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
+                entity.Property(e => e.Cost).HasColumnType("money");
+
                 entity.Property(e => e.Image).HasColumnType("image");
 
                 entity.Property(e => e.Title)
